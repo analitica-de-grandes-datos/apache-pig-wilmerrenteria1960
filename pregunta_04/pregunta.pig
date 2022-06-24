@@ -29,7 +29,7 @@ $ pig -x local -f pregunta.pig
          >>> Escriba su respuesta a partir de este punto <<<
 */
 
-data = LOAD 'data.tsv' USING PigStorage('\t')
+data = LOAD 'data.tsv' USING PigStorage(',')
     AS (
             driverId:int,
             truckId:int,
@@ -50,3 +50,5 @@ data_subset = LIMIT data 10;
 specific_columns = FOREACH data_subset GENERATE driverId, truckId, eventTime;
 ordered_specific_columns = ORDER specific_columns BY driverId, truckId, eventTime asc;
 STORE ordered_specific_columns INTO 'output' USING PigStorage(',');
+
+
