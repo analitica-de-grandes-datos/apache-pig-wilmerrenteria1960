@@ -13,13 +13,12 @@ $ pig -x local -f pregunta.pig
 */
 data = LOAD 'data.tsv' USING PigStorage('\t')
     AS (
-            letras:chararray,
-            fechas:chararray,
-            numeros:int
+            letter:chararray,
+            fecha:chararray,
+            number:int
     );
 
-numbers = FOREACH data GENERATE numeros:
-ordered_data = ORDER numbers BY numeros asc;
-limit_data = LIMIT ordered_data 5;
+data = FOREACH data GENERATE number;
+order_Data = ORDER data BY  number ASC;
+limit_data = LIMIT order_Data 5;
 STORE limit_data INTO 'output' USING PigStorage(',');
-
