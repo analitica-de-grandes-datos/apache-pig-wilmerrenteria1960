@@ -18,6 +18,8 @@ data = LOAD 'data.tsv' USING PigStorage('\t')
             numeros:int
     );
 
-ordered_data = ORDER data BY numeros asc;
+numbers = FOREACH data GENERATE numeros:
+ordered_data = ORDER numbers BY numeros asc;
 limit_data = LIMIT ordered_data 5;
-STORE ordered_data INTO 'output' USING PigStorage(',');
+STORE limit_data INTO 'output' USING PigStorage(',');
+
