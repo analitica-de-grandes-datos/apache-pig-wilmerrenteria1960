@@ -20,7 +20,7 @@ $ pig -x local -f pregunta.pig
 
         >>> Escriba su respuesta a partir de este punto <<<
 */
-data = LOAD 'data.csv' USING PigStorage(',') AS (numero:int, nombre:chararray, apellido:chararray , fecha:chararray , color:chararray, numero:int);
+data = LOAD 'data.csv' USING PigStorage(',') AS (id:int, nombre:chararray, apellido:chararray , fecha:chararray , color:chararray, numero:int);
 
 sizelastName = FOREACH data GENERATE apellido, SIZE(apellido) AS tamanoApellido ;
 
