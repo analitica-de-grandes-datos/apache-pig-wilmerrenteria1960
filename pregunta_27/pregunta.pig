@@ -21,6 +21,6 @@ $ pig -x local -f pregunta.pig
 */
 data = LOAD 'data.csv' USING PigStorage(',') AS (id:int, nombre:chararray, apellido:chararray , fecha:chararray , color:chararray, numero:int);
 
-substring_data = FOREACH datos GENERATE INDEXOF(nombre, 'ia',1);
+substring_data = FOREACH data GENERATE INDEXOF(nombre, 'ia',1);
 
 STORE substring_data INTO 'output' USING PigStorage(',');

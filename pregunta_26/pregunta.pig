@@ -23,6 +23,6 @@ $ pig -x local -f pregunta.pig
 
 data = LOAD 'data.csv' USING PigStorage(',') AS (id:int, nombre:chararray, apellido:chararray , fecha:chararray , color:chararray, numero:int);
 
-substring_data =FOREACH data GENERATE SUBSTRING (nombre, 0, 1) >= 'M';
-
+sub_data= FOREACH data GENERATE nombre;
+substring_data = FOREACH sub_data GENERATE SUBSTRING(nombre, 0, 1) >= 'M';
 STORE substring_data INTO 'output' USING PigStorage(',');
