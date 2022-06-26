@@ -13,7 +13,7 @@ $ pig -x local -f pregunta.pig
         >>> Escriba su respuesta a partir de este punto <<<
 */
 data = LOAD 'data.tsv' AS (letra:chararray, letras:bag{});
-separate_words = FOREACH data GENERATE FLATTEN(TOKENIZE(letras)) AS word;
+separate_words = FOREACH data GENERATE GENERATE FLATTEN(letras) AS word;
 grouped = GROUP separate_words BY word;
 wordcount = FOREACH grouped GENERATE group, COUNT(separate_words);
 STORE wordcount INTO 'output' USING PigStorage(',');
