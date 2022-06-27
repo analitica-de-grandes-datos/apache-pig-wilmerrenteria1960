@@ -22,4 +22,9 @@ $ pig -x local -f pregunta.pig
 
         >>> Escriba su respuesta a partir de este punto <<<
 */
+data = LOAD 'data.csv' USING PigStorage(',') AS (id:int, nombre:chararray, apellido:chararray , fecha:chararray , color:chararray, numero:int);
+
+format_date = FOREACH data GENERATE SUBSTRING(fecha,0,4) AS aniocompleto, SUBSTRING(fecha,2,4) AS anioInicio;
+
+STORE format_date INTO 'output' USING PigStorage(',');
 
