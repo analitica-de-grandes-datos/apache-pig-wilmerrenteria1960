@@ -23,9 +23,6 @@ $ pig -x local -f pregunta.pig
 */
 
 data = LOAD 'data.csv' USING PigStorage(',') AS (id:int, nombre:chararray, apellido:chararray , fecha:chararray , color:chararray, numero:int);
-
-soloColores= FOREACH data GENERATE color;
-
-obtencionColores =FILTER soloColores BY (color MATCHES '.*^[b-B].*');
-
-STORE obtencionColores INTO 'output' USING PigStorage(',');
+subConjuntoData= FOREACH data GENERATE color;
+filtrada= FILTER subConjuntoData BY (color MATCHES '.*^[bB].*');
+STORE filtrada INTO 'output' USING PigStorage(',');

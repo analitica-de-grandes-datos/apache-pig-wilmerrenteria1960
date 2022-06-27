@@ -19,11 +19,7 @@ $ pig -x local -f pregunta.pig
         >>> Escriba su respuesta a partir de este punto <<<
 */
 data = LOAD 'data.csv' USING PigStorage(',') AS (id:int, nombre:chararray, apellido:chararray , fecha:chararray , color:chararray, numero:int);
-
-nombreycolor= FOREACH data GENERATE nombre , color;
-
-filtroNombreyColor= FILTER nombreycolor BY (color MATCHES '.*[aeiou]$.*');
-
-STORE filtroNombreyColor INTO 'output' USING PigStorage(',');
+subConjunto = FOREACH data GENERATE REGEX_EXTRACT(fecha, '(.*)-(.*)-(.*)', 2); 
+STORE subConjunto INTO 'output';
 
 

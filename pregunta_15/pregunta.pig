@@ -20,10 +20,6 @@ $ pig -x local -f pregunta.pig
 
 */
 data = LOAD 'data.csv' USING PigStorage(',') AS (id:int, nombre:chararray, apellido:chararray , fecha:chararray , color:chararray, numero:int);
-
-nombreycolor= FOREACH data GENERATE nombre , color;
-
-filtroNombreyColor= FILTER nombreycolor BY (nombre MATCHES '.*^[zZ].*') AND (color == 'blue');
-
-STORE filtroNombreyColor INTO 'output' USING PigStorage(',');
-
+subConjunto= data ejercicio GENERATE nombre, color;
+filtrados= FILTER subConjunto BY (nombre MATCHES '.*^[zZ].*') AND (color == 'blue');
+STORE filtrados INTO 'output' USING PigStorage(' ');

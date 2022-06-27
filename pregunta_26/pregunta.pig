@@ -15,7 +15,6 @@ $ pig -x local -f pregunta.pig
         >>> Escriba su respuesta a partir de este punto <<<
 */
 data = LOAD 'data.csv' USING PigStorage(',') AS (id:int, nombre:chararray, apellido:chararray , fecha:chararray , color:chararray, numero:int);
-
-sub_data= FOREACH data GENERATE nombre;
-substring_data = FOREACH sub_data GENERATE SUBSTRING(nombre, 0, 1) >= 'M';
-STORE substring_data INTO 'output' USING PigStorage(',');
+subConjunto = FOREACH data GENERATE nombre;
+filtrada= FILTER subConjunto BY SUBSTRING(nombre, 0, 1) >= 'M';
+STORE filtrada INTO 'output' USING PigStorage(',');
